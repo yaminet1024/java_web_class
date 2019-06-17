@@ -43,12 +43,15 @@ CREATE TABLE `orders_detail` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
+drop table if exists `comment`;
 create table comment (
     `id` bigint(20) not null auto_increment comment '评论id',
+    `user_id` bigint(20) not null comment '用户id',
     `content` LONGTEXT default null comment '评论内容',
     `title` varchar(256)  not null comment '评论标题',
     `goods_id` bigint not null  comment '商品id',
     `create_date` datetime not null comment '评论时间',
+    `status` int not null default 1 comment '存在状态1-存在、0-删除',
     primary key (id),
     foreign key (goods_id) references goods(id)
 ) engine = InnoDB default CHARSET utf8MB4;
