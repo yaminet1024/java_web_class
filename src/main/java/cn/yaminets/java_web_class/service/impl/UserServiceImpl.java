@@ -73,4 +73,9 @@ public class UserServiceImpl implements UserService {
     public User getUserByToken(HttpServletResponse response, String token) {
         return null;
     }
+
+    @Override
+    public boolean isLogin(long userId) {
+        return redisService.existKey(String.valueOf(userId));
+    }
 }

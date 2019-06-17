@@ -34,6 +34,4 @@ public class UserController {
         return userService.register(response,user);
     }
 
-
-
 }

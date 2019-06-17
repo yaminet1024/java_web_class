@@ -56,5 +56,18 @@ public class RedisServiceImpl implements RedisService {
         }
     }
 
+    @Override
+    public boolean existKey(String key) {
+        Jedis jedis = null;
+        boolean isExist = false;
+        try {
+            jedis = redisConfig.redisPoolFactory().getResource();
+            isExist = jedis.exists(key);
+        }finally {
+            returnToPool(jedis);
+        }
+        return isExist;
+    }
+
 
 }

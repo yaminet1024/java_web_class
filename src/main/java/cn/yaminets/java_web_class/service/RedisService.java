@@ -10,4 +10,6 @@ public interface RedisService {
 
 
     public void removeKey(String key);
+
+    public boolean existKey(String key);
 }

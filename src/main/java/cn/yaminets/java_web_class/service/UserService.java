@@ -14,4 +14,6 @@ public interface UserService {
     Result register(HttpServletResponse response,User user);
 
     User getUserByToken(HttpServletResponse response,String token);
+
+    boolean isLogin(long userId);
 }
