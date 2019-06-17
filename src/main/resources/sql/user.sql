@@ -25,16 +25,23 @@ create table goods(
 )engine = InnoDB default CHARSET utf8MB4;
 
 
-create table orders(
-    `id` bigint(20) not null auto_increment comment '订单id',
-    `user_id` bigint(20) not null comment '用户id',
-    `goods_id` bigint(20) not null comment '商品id',
-    `numbers` int not null comment '商品数量',
-    `create_date` datetime not null comment '订单时间',
-    primary key (id),
-    foreign key (user_id) references user(id),
-    foreign key (goods_id) references goods(id)
-)engine = InnoDB default CHARSET utf8MB4;
+CREATE TABLE `orders` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) NOT NULL,
+  `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `fk_user_id` (`user_id`),
+  CONSTRAINT `fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `orders_detail` (
+  `orderId` bigint(20) NOT NULL,
+  `goods_id` bigint(20) NOT NULL,
+  `numbers` bigint(20) NOT NULL,
+  KEY `fk_goods` (`goods_id`),
+  CONSTRAINT `fk_goods` FOREIGN KEY (`goods_id`) REFERENCES `goods` (`id`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 create table comment (
     `id` bigint(20) not null auto_increment comment '评论id',
