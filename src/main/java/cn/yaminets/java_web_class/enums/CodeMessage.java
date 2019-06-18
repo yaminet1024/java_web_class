@@ -5,7 +5,8 @@ public enum  CodeMessage {
     SUCCESS(100,"成功"),
     LOGIN_USER_NAME_ERROR(101,"账号错误"),
     LOGIN_PASSWORD_ERROR(102,"密码错误"),
-    RESGISTER_USER_EXIST(103,"账号已经存在");
+    RESGISTER_USER_EXIST(103,"账号已经存在"),
+    USER_NOT_LOGIN(104,"用户未登陆");
 
     private int resultCode;
     private String resultMessage;

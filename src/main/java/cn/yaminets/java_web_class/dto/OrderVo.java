@@ -3,6 +3,7 @@ package cn.yaminets.java_web_class.dto;
 import lombok.Data;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 /**
  * @Description TODO
@@ -12,7 +13,5 @@ import java.sql.Timestamp;
 public class OrderVo {
     private Long id;
     private Long userId;
-    private Timestamp createDate;
-    private Long goodsId;
-    private Integer numbers;
+    List<OrderDetail> orderDetails;
 }

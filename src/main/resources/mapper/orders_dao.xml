@@ -8,6 +8,11 @@
         (user_id)
         values
         (#{userId})
+        <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER">
+            SELECT @@identity
+        </selectKey>
     </insert>
+
+
 
 </mapper>

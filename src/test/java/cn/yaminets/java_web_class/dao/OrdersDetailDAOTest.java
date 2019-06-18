@@ -21,7 +21,8 @@ public class OrdersDetailDAOTest {
         Orders orders = new Orders();
         orders.setUserId((long) 1);
         Integer integer = ordersDAO.insertNewOrder(orders);
-        Assert.assertEquals(1,String.valueOf( integer));
+        System.out.println(orders.getId());
+        Assert.assertNotNull(orders.getId());
     }
 
 }
