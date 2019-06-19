@@ -8,6 +8,7 @@ import cn.yaminets.java_web_class.enums.CodeMessage;
 import cn.yaminets.java_web_class.service.RedisService;
 import cn.yaminets.java_web_class.service.UserService;
 import cn.yaminets.java_web_class.utils.UUIDUtil;
+import cn.yaminets.java_web_class.utils.Utils;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.NotNull;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 
 @Service
@@ -38,6 +41,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Result login(HttpServletResponse response, @NotNull LoginVo loginVo) {
+        try {
+            loginVo.setPassword(Utils.encodeByMd5(loginVo.getPassword()));
+        } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         User user = userDAO.getUserById(Long.parseLong(loginVo.getMobile()));
         if (null == user){
             return Result.error(CodeMessage.LOGIN_USER_NAME_ERROR);
@@ -57,6 +65,11 @@ public class UserServiceImpl implements UserService {
         User checkExist = userDAO.getUserById(user.getId());
         if (checkExist != null){
             return Result.error(CodeMessage.RESGISTER_USER_EXIST);
+        }
+        try {
+            user.setPassword(Utils.encodeByMd5(user.getPassword()));
+        } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
+            e.printStackTrace();
         }
         userDAO.insertUser(user);
         return Result.success(user);

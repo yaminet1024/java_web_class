@@ -4,9 +4,11 @@ import cn.yaminets.java_web_class.dao.GoodsDAO;
 import cn.yaminets.java_web_class.dto.Goods;
 import cn.yaminets.java_web_class.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class GoodsServiceImpl implements GoodsService {
 
     @Autowired
