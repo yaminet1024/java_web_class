@@ -7,6 +7,7 @@ import cn.yaminets.java_web_class.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.Cookie;
@@ -28,7 +29,7 @@ public class CommentController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/add_comment")
+    @RequestMapping(value = "/add_comment", method = RequestMethod.POST)
     @ResponseBody
     public Result addComment(HttpServletRequest request, long userId, String title, String content, long goodsId) {
         String loginToken = userService.getToken(request);
@@ -39,7 +40,7 @@ public class CommentController {
         }
     }
 
-    @RequestMapping("/delete_comment")
+    @RequestMapping(value = "/delete_comment", method = RequestMethod.POST)
     @ResponseBody
     public Result deleteComment(HttpServletRequest request, long id) {
         String loginToken = userService.getToken(request);
@@ -50,7 +51,7 @@ public class CommentController {
         }
     }
 
-    @RequestMapping("/get_comments")
+    @RequestMapping(value = "/get_comments",method = RequestMethod.POST)
     @ResponseBody
     public Result getComments(long goodsId, int pageNum, int pageSize, String orderBy) {
         return commentService.getComments(goodsId,pageNum,pageSize,orderBy);
