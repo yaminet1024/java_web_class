@@ -3,6 +3,7 @@ package cn.yaminets.java_web_class.dao;
 import cn.yaminets.java_web_class.dto.OrderVo;
 import cn.yaminets.java_web_class.dto.Orders;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -11,6 +12,7 @@ import java.util.List;
  * @data 2019-06-17 17:31
  **/
 @Mapper
+@Component
 public interface OrdersDAO {
     /**1。 添加新订单*/
     public Integer insertNewOrder(Orders orders);
