@@ -6,6 +6,35 @@
     <insert id="insertGoods" parameterType="cn.yaminets.java_web_class.dto.Goods">
         insert into ccsu_class.goods values (#{id},#{title},#{images},#{description},#{price},#{stock})
     </insert>
+    
+    <resultMap id="goodsList" type="cn.yaminets.java_web_class.dto.Goods">
+        <result column="id" property="id"/>
+        <result column="title" property="title"/>
+        <result column="images" property="images"/>
+        <result column="description" property="description"/>
+        <result column="price" property="price"/>
+        <result column="stock" property="stock"/>
+    </resultMap>
+
+    <select id="queryGoodsByName" resultMap="goodsList" parameterType="java.lang.String">
+        select * from goods where title like CONCAT('%',#{goodsName},'%')
+    </select>
+
+    <select id="getGoodsList" resultMap="goodsList" parameterType="java.lang.String">
+        select * from goods limit #{index},#{limit}
+    </select>
+
+    <select id="getGoodsById" resultType="cn.yaminets.java_web_class.dto.Goods" parameterType="java.lang.Long">
+        select * from goods where id = #{id}
+    </select>
+
+    <select id="incGoodsStock">
+        update goods set stock = goods.stock + #{value} where id = #{id}
+    </select>
+
+    <select id="descGoodsStock">
+        update goods set stock = goods.stock - #{value} where id = #{id}
+    </select>
 
 
 
