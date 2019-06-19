@@ -20,7 +20,7 @@ public interface UserDAO {
     @Update("update user set last_login_date = #{date} where id = #{id}")
     public int setLastLoginDate(@Param("id") long id, @Param("date") Date date);
 
-    @Insert("insert into user values(#{id},#{nickName},#{password},#{headPic},#{registerDate},#{lastLoginDate},#{userSex},#{address})")
+    @Insert("insert into user(id,nick_name,password,head_pic,register_date,last_login_date,user_sex,address) values(#{id},#{nickName},#{password},#{headPic},#{registerDate},#{lastLoginDate},#{userSex},#{address})")
     public int insertUser(User user);
 
 }

@@ -71,6 +71,7 @@ public class UserServiceImpl implements UserService {
         } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
             e.printStackTrace();
         }
+        user.setRegisterDate(new Date());
         userDAO.insertUser(user);
         return Result.success(user);
     }

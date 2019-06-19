@@ -1,12 +1,14 @@
 package cn.yaminets.java_web_class.dto;
 
+import java.util.Date;
+
 public class User {
     private long id;
     private String nickName;
     private String password;
     private String headPic;
-    private String registerDate;
-    private String lastLoginDate;
+    private Date registerDate;
+    private Date lastLoginDate;
     private long LoginCount;
     private String userSex;
     private String address;
@@ -43,22 +45,6 @@ public class User {
         this.headPic = headPic;
     }
 
-    public String getRegisterDate() {
-        return registerDate;
-    }
-
-    public void setRegisterDate(String registerDate) {
-        this.registerDate = registerDate;
-    }
-
-    public String getLastLoginDate() {
-        return lastLoginDate;
-    }
-
-    public void setLastLoginDate(String lastLoginDate) {
-        this.lastLoginDate = lastLoginDate;
-    }
-
     public long getLoginCount() {
         return LoginCount;
     }
@@ -81,5 +67,21 @@ public class User {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public Date getRegisterDate() {
+        return registerDate;
+    }
+
+    public void setRegisterDate(Date registerDate) {
+        this.registerDate = registerDate;
+    }
+
+    public Date getLastLoginDate() {
+        return lastLoginDate;
+    }
+
+    public void setLastLoginDate(Date lastLoginDate) {
+        this.lastLoginDate = lastLoginDate;
     }
 }
