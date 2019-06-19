@@ -3,7 +3,9 @@ package cn.yaminets.java_web_class.dao;
 import cn.yaminets.java_web_class.dto.Comment;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
+
 import java.util.List;
+
 @Mapper
 @Repository
 public interface CommentDAO {
@@ -14,6 +16,12 @@ public interface CommentDAO {
     @Update("update comment set status = 0 where id = #{id}")
     int deleteComment(long id);
 
-    @Select("select * from comment where goods_id = #{goodsId}")
-    List<Comment> selectComments(long goodsId);
+//        @Select("<script>" +
+//            "select * from comment where goods_id = #{goodsId} " +
+//            "<if test= \"sort==\'desc\'\">" +
+//            "order by create_date desc" +
+//            "</if>" +
+//            "</script>")
+        @Select("select * from comment where goods_id = #{goodsId} ")
+        List<Comment> selectComments(@Param("goodsId") long goodsId);
 }
