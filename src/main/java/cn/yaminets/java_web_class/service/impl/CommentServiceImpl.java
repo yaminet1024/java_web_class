@@ -46,17 +46,21 @@ public class CommentServiceImpl implements CommentService {
         List<CommentVo> commentVoList = new ArrayList<CommentVo>();
         PageInfo pageResult = new PageInfo(commentList);
         for (Comment comment : commentList){
-            CommentVo commentVo = new CommentVo();
-            User user = userDAO.getUserById(comment.getUserId());
-            commentVo.setUserName(user.getNickName());
-            commentVo.setTitle(comment.getTitle());
-            commentVo.setContent(comment.getContent());
-            commentVo.setCreateDate(comment.getCreateDate());
+            CommentVo commentVo = toCommentVo(comment);
             commentVoList.add(commentVo);
         }
         pageResult.setList(commentVoList);
         return Result.success(pageResult);
     }
 
+    private CommentVo toCommentVo( Comment comment){
+        CommentVo commentVo = new CommentVo();
+        User user = userDAO.getUserById(comment.getUserId());
+        commentVo.setUserName(user.getNickName());
+        commentVo.setTitle(comment.getTitle());
+        commentVo.setContent(comment.getContent());
+        commentVo.setCreateDate(comment.getCreateDate());
+        return commentVo;
+    }
 
 }

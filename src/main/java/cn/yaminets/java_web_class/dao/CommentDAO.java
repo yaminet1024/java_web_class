@@ -16,12 +16,6 @@ public interface CommentDAO {
     @Update("update comment set status = 0 where id = #{id}")
     int deleteComment(long id);
 
-//        @Select("<script>" +
-//            "select * from comment where goods_id = #{goodsId} " +
-//            "<if test= \"sort==\'desc\'\">" +
-//            "order by create_date desc" +
-//            "</if>" +
-//            "</script>")
-        @Select("select * from comment where goods_id = #{goodsId} ")
-        List<Comment> selectComments(@Param("goodsId") long goodsId);
+    @Select("select * from comment where goods_id = #{goodsId} ")
+    List<Comment> selectComments(@Param("goodsId") long goodsId);
 }

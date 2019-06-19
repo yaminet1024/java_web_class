@@ -48,13 +48,11 @@ public class CommentController {
         } else {
             return Result.error(CodeMessage.NOT_USER_LOGIN);
         }
-
     }
 
     @RequestMapping("/get_comments")
     @ResponseBody
     public Result getComments(long goodsId, int pageNum, int pageSize, String orderBy) {
-
         return commentService.getComments(goodsId,pageNum,pageSize,orderBy);
     }
 }
