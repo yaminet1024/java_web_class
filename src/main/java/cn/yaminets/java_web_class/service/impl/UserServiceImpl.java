@@ -62,7 +62,7 @@ public class UserServiceImpl implements UserService {
     }
 
     private void addCookie(HttpServletResponse response, String token, User user) {
-        redisService.setValue(String.valueOf(user.getId()),token);
+        redisService.setValue(token,user.getId());
         Cookie cookie = new Cookie(TOKEN,token);
         cookie.setMaxAge(TOKEN_EXPIRE);
         cookie.setPath("/");
@@ -70,12 +70,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUserByToken(HttpServletResponse response, String token) {
-        return null;
+    public User getUserByToken(String token) {
+        Long userId = redisService.getValue(token,Long.class);
+        return userDAO.getUserById(userId);
     }
 
     @Override
-    public boolean isLogin(long userId) {
-        return redisService.existKey(String.valueOf(userId));
+    public boolean isLogin(String token) {
+        return redisService.existKey(String.valueOf(token));
     }
 }

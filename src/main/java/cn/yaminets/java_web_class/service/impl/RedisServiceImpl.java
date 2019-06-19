@@ -59,7 +59,7 @@ public class RedisServiceImpl implements RedisService {
     @Override
     public boolean existKey(String key) {
         Jedis jedis = null;
-        boolean isExist = false;
+        boolean isExist;
         try {
             jedis = redisConfig.redisPoolFactory().getResource();
             isExist = jedis.exists(key);

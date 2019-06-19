@@ -21,7 +21,6 @@ public class UserController {
     @Autowired
     UserService userService;
 
-
     @RequestMapping(value = "/login" , method = RequestMethod.POST)
     @ResponseBody
     public Result login(HttpServletResponse response, @Valid LoginVo loginVo){
