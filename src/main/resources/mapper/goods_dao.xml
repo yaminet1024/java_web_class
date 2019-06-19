@@ -28,13 +28,13 @@
         select * from goods where id = #{id}
     </select>
 
-    <select id="incGoodsStock">
+    <update id="incGoodsStock">
         update goods set stock = goods.stock + #{value} where id = #{id}
-    </select>
+    </update>
 
-    <select id="descGoodsStock">
+    <update id="descGoodsStock">
         update goods set stock = goods.stock - #{value} where id = #{id}
-    </select>
+    </update>
 
 
 
