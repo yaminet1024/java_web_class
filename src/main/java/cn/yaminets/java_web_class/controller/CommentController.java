@@ -31,16 +31,7 @@ public class CommentController {
     @RequestMapping("/add_comment")
     @ResponseBody
     public Result addComment(HttpServletRequest request, long userId, String title, String content, long goodsId) {
-        Cookie[] cookies = request.getCookies();
-        String loginToken = "";
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("loginToken")) {
-                    loginToken = cookie.getValue();
-                }
-            }
-        }
-
+        String loginToken = userService.getToken(request);
         if (userService.isLogin(loginToken)) {
             return commentService.addComment(userId, title, content, goodsId);
         } else {
@@ -50,23 +41,20 @@ public class CommentController {
 
     @RequestMapping("/delete_comment")
     @ResponseBody
-    public Result deleteComment(long userId, long id) {
+    public Result deleteComment(HttpServletRequest request, long id) {
+        String loginToken = userService.getToken(request);
+        if (userService.isLogin(loginToken)) {
+            return commentService.deleteComment(id);
+        } else {
+            return Result.error(CodeMessage.NOT_USER_LOGIN);
+        }
 
-//        if (userService.isLogin(userId)) {
-////            logger.info("执行添加");
-//            System.out.println("执行删除");
-        return commentService.deleteComment(id);
-//        } else {
-////            logger.info("用户未登录");
-//            System.out.println("用户未登录");
-//            return Result.error(CodeMessage.NOT_USER_LOGIN);
-//        }
     }
 
     @RequestMapping("/get_comments")
     @ResponseBody
     public Result getComments(long goodsId, int pageNum, int pageSize, String orderBy) {
-        System.out.println(pageNum + "//" + pageSize);
+
         return commentService.getComments(goodsId,pageNum,pageSize,orderBy);
     }
 }
