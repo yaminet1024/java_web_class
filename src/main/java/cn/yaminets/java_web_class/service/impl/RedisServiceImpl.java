@@ -17,14 +17,30 @@ public class RedisServiceImpl implements RedisService {
     RedisConfig redisConfig;
 
     @Override
-    public <T> T getValue(String key, Class<T> value) {
+    public <T> T getValue(String key, Class<T> valueType) {
         Jedis jedis = null;
         try {
             jedis = redisConfig.redisPoolFactory().getResource();
-            T t = (T) jedis.get(key);
-            return t;
+            String value = jedis.get(key);
+            return stringToBean(value,valueType);
         }finally {
             returnToPool(jedis);
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private <T> T stringToBean(String value, Class<T> valueType) {
+        if (value == null || value.length()<=0){
+            return null;
+        }
+        if (valueType == int.class || valueType == Integer.class){
+            return (T)Integer.valueOf(value);
+        }else if (valueType == String.class){
+            return (T) value;
+        }else if (valueType == long.class || valueType == Long.class) {
+            return (T) Long.valueOf(value);
+        }else {
+            return null;
         }
     }
 

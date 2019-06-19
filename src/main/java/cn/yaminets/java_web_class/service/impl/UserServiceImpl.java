@@ -47,6 +47,7 @@ public class UserServiceImpl implements UserService {
             e.printStackTrace();
         }
         User user = userDAO.getUserById(Long.parseLong(loginVo.getMobile()));
+        user.setLoginCount(user.getLoginCount() + 1);
         if (null == user){
             return Result.error(CodeMessage.LOGIN_USER_NAME_ERROR);
         }
@@ -82,6 +83,7 @@ public class UserServiceImpl implements UserService {
         cookie.setMaxAge(TOKEN_EXPIRE);
         cookie.setPath("/");
         response.addCookie(cookie);
+        response.setHeader(TOKEN,token);
     }
 
     @Override

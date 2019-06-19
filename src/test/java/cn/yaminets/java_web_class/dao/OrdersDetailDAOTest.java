@@ -19,10 +19,7 @@ public class OrdersDetailDAOTest {
     @Test
     public void insert(){
         Orders orders = new Orders();
-        orders.setUserId((long) 1);
         Integer integer = ordersDAO.insertNewOrder(orders);
-        System.out.println(orders.getId());
-        Assert.assertNotNull(orders.getId());
     }
 
 }
