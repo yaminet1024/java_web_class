@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -79,4 +80,17 @@ public class UserServiceImpl implements UserService {
     public boolean isLogin(String token) {
         return redisService.existKey(String.valueOf(token));
     }
+
+    @Override
+    public String getToken(HttpServletRequest request) {
+        String token = "";
+        for(Cookie cookie: request.getCookies()){
+            if(cookie.getName().equals(TOKEN)){
+                token = cookie.getValue();
+            }
+        }
+        return token;
+    }
+
+
 }

@@ -6,6 +6,7 @@ import cn.yaminets.java_web_class.dto.Result;
 import cn.yaminets.java_web_class.dto.User;
 import org.springframework.http.HttpRequest;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public interface UserService {
@@ -16,4 +17,6 @@ public interface UserService {
     User getUserByToken(String token);
 
     boolean isLogin(String token);
+
+    String getToken(HttpServletRequest request);
 }
