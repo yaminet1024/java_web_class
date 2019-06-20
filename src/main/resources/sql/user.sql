@@ -58,10 +58,13 @@ create table comment (
 
 create table cart(
   `id` bigint(20) not null auto_increment comment '购物车id',
-  `shop_id` bigint not null comment '商品id',
-  `shop_name` varchar(256) not null comment '冗余数据-商品名称',
+  `user_id` bigint(20) not null comment '用户id',
+  `goods_id` bigint not null comment '商品id',
+  `goods_name` varchar(256) not null comment '冗余数据-商品名称',
   `numbers` int not null comment '商品数量',
-  `shop_price` float not null comment '冗余数据-商品价格'
-
-)
+  `goods_price` float not null comment '冗余数据-商品价格',
+  primary key (id),
+  foreign key (user_id) references user(id),
+  foreign key (goods_id) references goods(id)
+)engine = InnoDB default CHARSET utf8MB4;
 

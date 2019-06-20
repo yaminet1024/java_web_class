@@ -17,14 +17,24 @@ public class GoodsController {
     @Autowired
     GoodsServiceImpl goodsService;
 
-    @RequestMapping(value = "/startIndex={startIndex}?limit={limit}",method = RequestMethod.GET)
+    @RequestMapping(value = "/list",method = RequestMethod.GET)
     @ResponseBody
-    public Result getGoodsList(@PathVariable(value = "startIndex") int startIndex,@PathVariable(value = "limit") int limit){
+    public Result getGoodsList(@RequestParam int startIndex,@RequestParam int limit){
         List<Goods> goodsList = goodsService.getGoodList(startIndex,limit);
         if (goodsList == null || goodsList.isEmpty()){
             return Result.error(CodeMessage.EMPTY_DATA);
         }
         return Result.success(goodsList);
+    }
+
+    @RequestMapping(value = "/info",method = RequestMethod.GET)
+    @ResponseBody
+    public Result getGoodsById(@RequestParam long goodsId){
+        Goods goods = goodsService.getGoodsById(goodsId);
+        if(null == goods){
+            return Result.error(CodeMessage.GOODS_NOT_EXIST);
+        }
+        return Result.success(goods);
     }
 
 }

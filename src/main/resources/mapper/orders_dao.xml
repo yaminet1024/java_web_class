@@ -6,9 +6,9 @@
 <mapper namespace = "cn.yaminets.java_web_class.dao.OrdersDAO">
     <insert id="insertNewOrder">
         insert into orders
-        (user_id)
+        (user_id,goods_id,numbers,create_date)
         values
-        (#{userId})
+        (#{userId},#{goodsId},#{numbers},#{createDate})
         <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER">
             SELECT @@identity
         </selectKey>

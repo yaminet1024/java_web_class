@@ -78,11 +78,17 @@ public class UserServiceImpl implements UserService {
         cookie.setPath("/");
         response.addCookie(cookie);
         response.setHeader(TOKEN,token);
+        response.setHeader("Access-Control-Expose-Headers", "token");
     }
 
     @Override
     public User getUserByToken(String token) {
         Long userId = redisService.getValue(token,Long.class);
+        return userDAO.getUserById(userId);
+    }
+
+    @Override
+    public User getUserById(long userId) {
         return userDAO.getUserById(userId);
     }
 
@@ -98,6 +104,11 @@ public class UserServiceImpl implements UserService {
             if(cookie.getName().equals(TOKEN)){
                 token = cookie.getValue();
             }
+        }
+        //兼容header里面添加token的方案
+        String headerToken = request.getHeader(TOKEN);
+        if (headerToken != null && headerToken.length()>0){
+            token = headerToken;
         }
         return token;
     }

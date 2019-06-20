@@ -9,7 +9,10 @@ public enum  CodeMessage {
     NOT_USER_LOGIN(104,"用户未登录"),
     ORDER_NOT_EXIT(105,"没有订单信息"),
     EMPTY_DATA(106,"数据空"),
-    CREATE_ORDER_FAIL(107,"创建订单失败");
+    CREATE_ORDER_FAIL(107,"创建订单失败"),
+    GOODS_NOT_EXIST(109,"商品不存在"),
+    INDEX_OUT_OF_STOCK(108,"超出库存");
+
 
     private int resultCode;
     private String resultMessage;

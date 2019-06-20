@@ -16,6 +16,8 @@ public interface UserService {
 
     User getUserByToken(String token);
 
+    User getUserById(long userId);
+
     boolean isLogin(String token);
 
     String getToken(HttpServletRequest request);

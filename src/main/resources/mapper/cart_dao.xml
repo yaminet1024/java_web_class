@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace = "cn.yaminets.java_web_class.dao.CartDAO">
+    <insert id="newGoodsCart" parameterType="cn.yaminets.java_web_class.dto.Cart">
+        insert into ccsu_class.cart(user_id,goods_id, goods_name, numbers, goods_price) values (#{userId},#{goodsId},#{goodsName},#{numbers},#{goodsPrice})
+    </insert>
+
+    <resultMap id="cartList" type="cn.yaminets.java_web_class.dto.Cart">
+        <result column="id" property="id"/>
+        <result column="goods_id" property="goodsId"/>
+        <result column="goods_name" property="goodsName"/>
+        <result column="numbers" property="numbers"/>
+        <result column="goods_price" property="goodsPrice"/>
+    </resultMap>
+
+    <select id="getUserCart" resultMap="cartList" parameterType="java.lang.Long">
+        select * from cart where user_id = #{userId}
+    </select>
+
+    <update id="incGoodsNumber">
+        update cart set numbers = cart.numbers + #{value} where id = #{cartId}
+    </update>
+
+    <update id="descGoodsNumber">
+        update cart set numbers = cart.numbers - #{value} where id = #{cartId}
+    </update>
+
+    <select id="getCartById" resultType="cn.yaminets.java_web_class.dto.Cart">
+        select * from cart where id = #{cartId}
+    </select>
+
+
+
+</mapper>

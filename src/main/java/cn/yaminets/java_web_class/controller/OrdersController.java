@@ -5,12 +5,17 @@ import cn.yaminets.java_web_class.dto.OrderVo;
 import cn.yaminets.java_web_class.dto.Result;
 import cn.yaminets.java_web_class.enums.CodeMessage;
 import cn.yaminets.java_web_class.service.OrderService;
+import cn.yaminets.java_web_class.utils.Utils;
+import com.alibaba.fastjson.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import sun.nio.cs.UnicodeEncoder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.List;
 
 @RestController
@@ -25,7 +30,16 @@ public class OrdersController {
      * @return
      */
     @PostMapping("/buy")
-    public Result addOrder(@Valid List<OrderDetail> orderDetailList, HttpServletRequest request){
+    public Result addOrder(@RequestBody @Valid String jsonString, HttpServletRequest request){
+        try {
+            jsonString = URLDecoder.decode(jsonString, "GBK");
+            jsonString = jsonString.replace("jsonString=","");
+            System.out.println(jsonString + " fuck");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        List<OrderDetail> orderDetailList = JSON.parseArray(jsonString,OrderDetail.class);
+        System.out.println(orderDetailList);
         try {
             return orderService.addOrder(orderDetailList,request);
         } catch (Exception e) {
