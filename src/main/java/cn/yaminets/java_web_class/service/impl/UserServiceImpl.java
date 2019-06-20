@@ -5,16 +5,12 @@ import cn.yaminets.java_web_class.dto.LoginVo;
 import cn.yaminets.java_web_class.dto.Result;
 import cn.yaminets.java_web_class.dto.User;
 import cn.yaminets.java_web_class.enums.CodeMessage;
-import cn.yaminets.java_web_class.service.RedisService;
 import cn.yaminets.java_web_class.service.UserService;
 import cn.yaminets.java_web_class.utils.UUIDUtil;
 import cn.yaminets.java_web_class.utils.Utils;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -36,8 +32,6 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     RedisServiceImpl redisService;
-
-
 
     @Override
     public Result login(HttpServletResponse response, @NotNull LoginVo loginVo) {

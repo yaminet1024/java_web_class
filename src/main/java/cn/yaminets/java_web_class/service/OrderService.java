@@ -9,10 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-/**
- * @ClassName OrderService
- * @Description TODO
- **/
+
 public interface OrderService {
-    public Result addOrder(@NotNull List<OrderDetail> orderDetailList);
+    Result addOrder(@NotNull List<OrderDetail> orderDetailList,HttpServletRequest request) throws Exception;
+
+    Result getOrders(HttpServletRequest request,int start,int pageSize) throws Exception;
 }

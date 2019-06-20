@@ -2,7 +2,20 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace = "cn.yaminets.java_web_class.dao.OrdersDetail">
 
+<mapper namespace = "cn.yaminets.java_web_class.dao.OrdersDetailDAO">
+    <!--获取详细数据-->
+    <select id="selectDetailInfo" resultType="cn.yaminets.java_web_class.dto.OrderDetail">
+        select orderId,goods_id,numbers
+        from orders_detail
+        where orderId = #{orderId}
+    </select>
 
+    <!--添加详细数据-->
+    <insert id="insertNewDetailOrder">
+        insert into orders_detail
+        (orderId, goods_id, numbers)
+        values
+        (#{orderId},#{goodsId},#{numbers})
+    </insert>
 </mapper>

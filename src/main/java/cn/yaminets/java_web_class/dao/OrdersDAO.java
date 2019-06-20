@@ -15,11 +15,8 @@ import java.util.List;
 @Component
 public interface OrdersDAO {
     /**1。 添加新订单*/
-    public Integer insertNewOrder(Orders orders);
+    Integer insertNewOrder(Orders orders);
 
     /**2。 获取所有订单*/
-    public List<Orders> selectAllOrder();
-    /**3。 根据Id获取对应数据*/
-
-    /**4。 根据用户获取对应数据*/
+    List<Orders> selectAllOrder(Long userId,int start,int pageSize);
 }
