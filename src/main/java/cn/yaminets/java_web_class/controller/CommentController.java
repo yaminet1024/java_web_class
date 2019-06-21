@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.Cookie;
@@ -31,7 +32,7 @@ public class CommentController {
 
     @RequestMapping(value = "/add_comment", method = RequestMethod.POST)
     @ResponseBody
-    public Result addComment(HttpServletRequest request, long userId, String title, String content, long goodsId) {
+    public Result addComment(HttpServletRequest request, @RequestParam long userId, @RequestParam String title, @RequestParam String content, @RequestParam long goodsId) {
         String loginToken = userService.getToken(request);
         if (userService.isLogin(loginToken)) {
             return commentService.addComment(userId, title, content, goodsId);
@@ -51,9 +52,9 @@ public class CommentController {
         }
     }
 
-    @RequestMapping(value = "/get_comments",method = RequestMethod.POST)
+    @RequestMapping(value = "/get_comments",method = RequestMethod.GET)
     @ResponseBody
-    public Result getComments(long goodsId, int pageNum, int pageSize, String orderBy) {
+    public Result getComments(@RequestParam long goodsId,@RequestParam int pageNum,@RequestParam int pageSize, @RequestParam String orderBy) {
         return commentService.getComments(goodsId,pageNum,pageSize,orderBy);
     }
 }

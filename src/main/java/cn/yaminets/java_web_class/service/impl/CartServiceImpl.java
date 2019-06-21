@@ -1,10 +1,7 @@
 package cn.yaminets.java_web_class.service.impl;
 
 import cn.yaminets.java_web_class.dao.CartDAO;
-import cn.yaminets.java_web_class.dto.Cart;
-import cn.yaminets.java_web_class.dto.Goods;
-import cn.yaminets.java_web_class.dto.Result;
-import cn.yaminets.java_web_class.dto.User;
+import cn.yaminets.java_web_class.dto.*;
 import cn.yaminets.java_web_class.enums.CodeMessage;
 import cn.yaminets.java_web_class.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,13 +31,37 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public Result incCartNumbers(long cartId, int value) {
-        Cart cart = cartDAO.getCartById(cartId);
-        Goods goods = goodsService.getGoodsById(cart.getGoodsId());
-        if(value + cart.getNumbers() > goods.getStock()){
-            return Result.error(CodeMessage.INDEX_OUT_OF_STOCK);
+    public Result incCartNumbers(CartManagerVo vo) {
+        if(vo.getCartId() == 0){
+            Cart tempCart = cartDAO.getCartByUserIdAndGoodsId(vo.getUserId(),vo.getGoodsId());
+            if(tempCart == null){
+                Cart newCart = new Cart();
+                Goods goods = goodsService.getGoodsById(vo.getGoodsId());
+                newCart.setUserId(vo.getUserId());
+                newCart.setGoodsId(goods.getId());
+                newCart.setGoodsName(goods.getTitle());
+                newCart.setImages(goods.getImages());
+                newCart.setNumbers(1);
+                newCart.setGoodsPrice(goods.getPrice());
+                cartDAO.newGoodsCart(newCart);
+                vo.setCartId(newCart.getId());
+            }else {
+                vo.setCartId(tempCart.getId());
+                Goods goods = goodsService.getGoodsById(vo.getGoodsId());
+                if(tempCart.getNumbers() + vo.getValue() > goods.getStock()){
+                    return Result.error(CodeMessage.INDEX_OUT_OF_STOCK);
+                }
+                cartDAO.incGoodsNumber(vo.getCartId(),vo.getValue());
+            }
+        }else {
+            Cart cart = cartDAO.getCartById(vo.getCartId());
+            Goods goods = goodsService.getGoodsById(cart.getGoodsId());
+            System.out.println("1");
+            if(cart.getNumbers() + vo.getValue() > goods.getStock()){
+                return Result.error(CodeMessage.INDEX_OUT_OF_STOCK);
+            }
+            cartDAO.incGoodsNumber(vo.getCartId(),vo.getValue());
         }
-        cartDAO.incGoodsNumber(cartId,value);
         return Result.success(CodeMessage.SUCCESS);
     }
 
@@ -53,4 +74,11 @@ public class CartServiceImpl implements CartService {
         cartDAO.descGoodsNumber(cartId,value);
         return Result.success(CodeMessage.SUCCESS);
     }
+
+    @Override
+    public Result delCartById(long cartId) {
+        cartDAO.delCartById(cartId);
+        return Result.success(CodeMessage.SUCCESS);
+    }
+
 }

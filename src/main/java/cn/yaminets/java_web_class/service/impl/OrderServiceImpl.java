@@ -13,12 +13,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
 
 @Service
-public class OrderServiceImpl implements OrderService {
+public class OrderServiceimpl implements OrderService {
     @Autowired
     OrdersDAO ordersDAO;
     @Autowired
@@ -49,13 +50,15 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Result addOrder(@NotNull List<OrderDetail> orderDetailList,HttpServletRequest request) throws Exception{
         User userByRequset = getUserByRequset(request);
-        //添加新的订单
-        Orders orders = new Orders();
-        orders.setUserId(userByRequset.getId());
-        ordersDAO.insertNewOrder(orders);
-        Long id = orders.getId();
         //根据订单id添加详细数据
         for(OrderDetail orderDetail:orderDetailList){
+            Orders orders = new Orders();
+            orders.setUserId(userByRequset.getId());
+            orders.setGoodsId(orderDetail.getGoodsId());
+            orders.setNumbers(orderDetail.getNumbers());
+            orders.setCreateDate(new Date());
+            ordersDAO.insertNewOrder(orders);
+            Long id = orders.getId();
             Goods goodsById = goodsService.getGoodsById(orderDetail.getGoodsId());
             if(goodsById.getStock()<orderDetail.getNumbers()){
                 throw new Exception();
@@ -63,7 +66,7 @@ public class OrderServiceImpl implements OrderService {
             /*减库存*/
             goodsService.descGoodsStock(orderDetail.getGoodsId(),orderDetail.getNumbers());
             orderDetail.setOrderId(id);
-            ordersDetailDAO.insertNewDetailOrder(orderDetail);
+//            ordersDetailDAO.insertNewDetailOrder(orderDetail);
         }
         return Result.success(CodeMessage.SUCCESS);
     }

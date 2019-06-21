@@ -30,7 +30,7 @@ public class CommentServiceImpl implements CommentService {
         comment.setContent(content);
         comment.setGoodsId(goodsId);
         commentDAO.insertComment(comment);
-        return null;
+        return Result.success(comment);
     }
 
     @Override

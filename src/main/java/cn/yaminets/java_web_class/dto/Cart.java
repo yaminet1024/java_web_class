@@ -7,9 +7,18 @@ public class Cart {
     private long id;
     private long userId;
     private long goodsId;
+    private String images;
     private String goodsName;
     private int numbers;
     private float goodsPrice;
+
+    public String getImages() {
+        return images;
+    }
+
+    public void setImages(String images) {
+        this.images = images;
+    }
 
     public long getId() {
         return id;

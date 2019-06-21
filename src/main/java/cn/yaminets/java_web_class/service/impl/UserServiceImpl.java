@@ -100,9 +100,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public String getToken(HttpServletRequest request) {
         String token = "";
-        for(Cookie cookie: request.getCookies()){
-            if(cookie.getName().equals(TOKEN)){
-                token = cookie.getValue();
+        if(request.getCookies()!=null){
+            for(Cookie cookie: request.getCookies()){
+                if(cookie.getName().equals(TOKEN)){
+                    token = cookie.getValue();
+                }
             }
         }
         //兼容header里面添加token的方案

@@ -60,6 +60,7 @@ create table cart(
   `id` bigint(20) not null auto_increment comment '购物车id',
   `user_id` bigint(20) not null comment '用户id',
   `goods_id` bigint not null comment '商品id',
+  `images` varchar (256) default null comment '商品图片',
   `goods_name` varchar(256) not null comment '冗余数据-商品名称',
   `numbers` int not null comment '商品数量',
   `goods_price` float not null comment '冗余数据-商品价格',

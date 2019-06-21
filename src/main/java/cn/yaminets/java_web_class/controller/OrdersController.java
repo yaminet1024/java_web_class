@@ -9,7 +9,6 @@ import cn.yaminets.java_web_class.utils.Utils;
 import com.alibaba.fastjson.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import sun.nio.cs.UnicodeEncoder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,7 +25,6 @@ public class OrdersController {
 
     /**
      * 购买商品
-     * @param orderDetailList 商品id列表
      * @return
      */
     @PostMapping("/buy")

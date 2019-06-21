@@ -14,4 +14,6 @@ public interface CartDAO {
     void newGoodsCart(Cart cart);
     void incGoodsNumber(long cartId,int value);
     void descGoodsNumber(long cartId,int value);
+    Cart getCartByUserIdAndGoodsId(long userId,long goodsId);
+    void delCartById(long cartId);
 }
